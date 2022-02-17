@@ -19,11 +19,13 @@ const CardSchema = new Schema({
     required: [true, "A desciption is required"],
   },
   listId: {
-    type: Number,
+    type: Schema.Types.ObjectId,
+    ref: 'List',
     required: true,
   },
   boardId: {
-    type: Number,
+    type: Schema.Types.ObjectId,
+    ref: 'Board',
     required: true,
   },
   position: {
@@ -37,4 +39,4 @@ const CardSchema = new Schema({
 
 const Card = mongoose.model("Card", CardSchema);
 
-module.exports = Card = mongoose.model("card", CardSchema);
+module.exports = Card;
