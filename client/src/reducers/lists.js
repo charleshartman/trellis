@@ -1,13 +1,13 @@
-import List from "../components/List";
-
-export default function boards(state = [], action) {
+export default function lists(state = [], action) {
   switch (action.type) {
-    case "FETCH_BOARDS_SUCCESS": {
-      return action.boards;
-    }
     case "FETCH_BOARD_SUCCESS": {
-      const { lists, ...board } = action.board;
-      return [board];
+      const { lists } = action.board;
+
+      return lists.map((list) => {
+        // eslint-disable-next-line no-unused-vars
+        let { cards, ...listWithoutCards } = list;
+        return listWithoutCards;
+      });
     }
     case "CREATE_BOARD_SUCCESS": {
       const newBoard = action.board;

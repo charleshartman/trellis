@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchBoard } from "../actions/BoardActions";
 import List from "./List";
 
 const Board = () => {
+  const dispatch = useDispatch();
+  const board = useSelector((state) => state.boards[0]);
+  const lists = useSelector((state) => state.lists);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(fetchBoard(id));
+  }, [dispatch, id]);
+
+  if (!board) {
+    return null;
+  }
+
   return (
     <>
-       <header>
+      <header>
         <ul>
-          <li id="title">My Title</li>
+          <li id="title">{board.title}</li>
           <li className="star-icon icon"></li>
           <li className="private private-icon icon">Private</li>
         </ul>
@@ -20,7 +37,9 @@ const Board = () => {
       <main>
         <div id="list-container" className="list-container">
           <div id="existing-lists" className="existing-lists">
-            <List />            
+            {lists.map((list) => {
+              return <List key={list._id} list={list} />;
+            })}
           </div>
           <div id="new-list" className="new-list">
             <span>Add a list...</span>
@@ -56,11 +75,17 @@ const Board = () => {
             <ul className="menu-list">
               <li className="background-item">Change Background</li>
               <li className="filter-icon menu-icon">Filter Cards</li>
-              <li className="power-icon menu-icon not-implemented">Power-Ups</li>
-              <li className="stickers-icon menu-icon not-implemented">Stickers</li>
+              <li className="power-icon menu-icon not-implemented">
+                Power-Ups
+              </li>
+              <li className="stickers-icon menu-icon not-implemented">
+                Stickers
+              </li>
               <li className="more-icon menu-icon">More</li>
               <hr />
-              <li className="activity-icon menu-icon not-implemented">Activity</li>
+              <li className="activity-icon menu-icon not-implemented">
+                Activity
+              </li>
             </ul>
             <ul className="activity-list">
               <li>

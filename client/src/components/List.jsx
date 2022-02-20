@@ -1,14 +1,19 @@
-import React from "react"
-import Card from "./Card"
+import React from "react";
+import { useSelector } from "react-redux";
+import Card from "./Card";
 
-const List = () => {
+const List = ({ list }) => {
+  const cards = useSelector((state) => {
+    return state.cards;
+  });
+
   return (
     <div className="list-wrapper">
       <div className="list-background">
         <div className="list">
           <a className="more-icon sm-icon" href=""></a>
           <div>
-            <p className="list-title">Stuff to try (this is a list)</p>
+            <p className="list-title">{list.title}</p>
           </div>
           <div className="add-dropdown add-top">
             <div className="card"></div>
@@ -18,8 +23,14 @@ const List = () => {
               <span>...</span>
             </div>
           </div>
-          <div id="cards-container" data-id="list-1-cards">
-            <Card />
+          <div id="cards-container" data-id={`list-${list._id}-cards`}>
+            {cards.map((card) => {
+              // console.log(card.listId, list._id)
+              if (card.listId === list._id) {
+                // console.log(card);
+                return <Card key={card._id} card={card} />;
+              }
+            })}
           </div>
           <div className="add-dropdown add-bottom">
             <div className="card">
@@ -39,7 +50,7 @@ const List = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default List
+export default List;
