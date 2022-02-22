@@ -1,5 +1,3 @@
-import List from "../components/List";
-
 export default function boards(state = [], action) {
   switch (action.type) {
     case "FETCH_BOARDS_SUCCESS": {

@@ -40,6 +40,9 @@ const apiClient = {
       .then(callback)
       .catch(logError);
   },
+  createList: function (boardId, title, callback) {
+    //HERE TBC
+  },
 };
 
 export default apiClient;
