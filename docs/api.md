@@ -325,20 +325,20 @@ The card is returned in JSON format. The JSON also includes the card’s comment
 ```json
 {
   "_id": 9,
-  "title": "My new card",
-  "description": "",
-  "labels": [],
-  "listId": 13,
-  "position": 65535.0,
-  "archived": false,
+  "title": "My new card", // 
+  "description": "",      // 
+  "labels": [],           // 
+  "listId": 13,           //
+  "position": 65535.0,    //
+  "archived": false,      // missing
   "createdAt": "2020-10-08T17:54:55.285Z",
   "updatedAt": "2020-10-08T17:54:55.285Z",
   "dueDate": null,
-  "completed": false,
-  "boardId": 1,
-  "comments": [],
+  "completed": false,   // missing
+  "boardId": 1,         
+  "comments": [],       // missing
   "commentsCount": 0
-  "actions": [
+  "actions": [          // missing
     {
       "_id": 49,
       "description": " added this card to My list",

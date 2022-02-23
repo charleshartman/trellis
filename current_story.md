@@ -1,18 +1,22 @@
 # Current stories in current epic
 
-- User can edit the name of a list from the board view.
+- GET `/api/cards/:id `endpoint
+  - Add missing properties to CardSchema based on the api document
+  - Add a get route `(/api/cards/:id)` to the api.js file
+  - Create a cardsController.js file in controllers folder
+  - Define method getCard in cardsController that fetches a card based on its id
 
-  - use ternary to hide/show <p> title vs <input> title
-  - when user clicks '...' span, list.title becomes editable
-  - when user presses return/enter title is updated
-    - dispatch action to updateListTitle
-    - define updateListTitle & updateListTitleSuccess in listActions
-    - define UPDATE_LIST_SUCCESS in ActionTypes
-    - define updateListTitle in ApiClient
-    - define UPDATE_LIST_TITLE_URL in ApiRoutes
-    - define UPDATE_LIST_SUCCESS case in lists reducer
-
-- PUT /api/lists/:id endpoint
-
-  - define updateListTitle on listsController
-  - define PUT route (/lists/:id) in api.js
+- User can view a card
+  - When a user clicks on a card, the card is presented in a modal.
+  - Wrapping <div> with className card with a <Link> component that redirects you to `/cards/${card._id}`
+    - dispatch action to `getCard`
+    - Create a cardActions file under actions folder
+    - define `getCard` & `getCardSuccess` in cardActions
+    - define `FETCH_CARD_SUCCESS` in ActionTypes
+    - define `getCard` in ApiClient
+    - define `FETCH_CARD_URL` in ApiRoutes
+    - define `FETCH_CARD_SUCCESS` case in cards reducer
+  - When modal is displayed, url must change to `/cards/:id/`
+    - Make sure to use the `useHistory` react-router-dom hook
+  - Need to define a new route for the modal
+    - `/(boards|cards)/:id`

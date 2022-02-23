@@ -35,7 +35,7 @@ const CardSchema = new Schema({
   commentsCount: {
     type: Number,
   },
-});
+}, { timestamps: true });
 
 const Card = mongoose.model("Card", CardSchema);
 
