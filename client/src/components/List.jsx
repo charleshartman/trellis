@@ -13,6 +13,12 @@ const List = ({ list }) => {
         <div className="list">
           <a className="more-icon sm-icon" href=""></a>
           <div>
+            {/* <input
+              type="text"
+              className="list-title"
+              value="List title during editing"
+              autoFocus="true"
+            /> */}
             <p className="list-title">{list.title}</p>
           </div>
           <div className="add-dropdown add-top">
@@ -25,9 +31,7 @@ const List = ({ list }) => {
           </div>
           <div id="cards-container" data-id={`list-${list._id}-cards`}>
             {cards.map((card) => {
-              // console.log(card.listId, list._id)
               if (card.listId === list._id) {
-                // console.log(card);
                 return <Card key={card._id} card={card} />;
               }
             })}

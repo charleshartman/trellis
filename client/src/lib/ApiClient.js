@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import axios from "axios";
 import * as routes from "../constants/ApiRoutes";
 
@@ -40,8 +41,12 @@ const apiClient = {
       .then(callback)
       .catch(logError);
   },
-  createList: function (boardId, title, callback) {
-    //HERE TBC
+  createList: function (list, callback) {
+    return axios
+      .post(routes.CREATE_LIST_URL, { ...list })
+      .then(unwrapData)
+      .then(callback)
+      .catch(logError);
   },
 };
 

@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchBoard } from "../actions/BoardActions";
+import { createList } from "../actions/ListActions";
 import List from "./List";
 
 const Board = () => {
@@ -10,6 +11,27 @@ const Board = () => {
   const lists = useSelector((state) => state.lists);
 
   const { id } = useParams();
+
+  const [isAddListActive, setAddListActive] = useState(false);
+  const [newListTitle, setNewListTitle] = useState("");
+
+  const handleToggle = () => {
+    setAddListActive(!isAddListActive);
+    setNewListTitle("");
+  };
+
+  const handleTitleInput = (e) => {
+    setNewListTitle(e.target.value);
+  };
+
+  const handleSubmitNewList = (e) => {
+    e.preventDefault();
+    if (!newListTitle) {
+      return;
+    }
+    dispatch(createList({ boardId: id, list: { title: newListTitle } }));
+    handleToggle();
+  };
 
   useEffect(() => {
     dispatch(fetchBoard(id));
@@ -41,12 +63,25 @@ const Board = () => {
               return <List key={list._id} list={list} />;
             })}
           </div>
-          <div id="new-list" className="new-list">
-            <span>Add a list...</span>
-            <input type="text" placeholder="Add a list..." />
+          <div
+            id="new-list"
+            className={isAddListActive ? "new-list selected" : "new-list"}
+          >
+            <span onClick={handleToggle}>Add a list...</span>
+            <input
+              type="text"
+              placeholder="Add a list..."
+              value={newListTitle}
+              onChange={handleTitleInput}
+            />
             <div>
-              <input type="submit" className="button" value="Save" />
-              <i className="x-icon icon"></i>
+              <input
+                onClick={handleSubmitNewList}
+                type="submit"
+                className="button"
+                value="Save"
+              />
+              <i onClick={handleToggle} className="x-icon icon"></i>
             </div>
           </div>
         </div>

@@ -9,9 +9,9 @@ export default function lists(state = [], action) {
         return listWithoutCards;
       });
     }
-    case "CREATE_BOARD_SUCCESS": {
-      const newBoard = action.board;
-      return state.concat(newBoard);
+    case "CREATE_LIST_SUCCESS": {
+      const newList = action.list;
+      return state.concat(newList);
     }
     default:
       return state;
@@ -24,5 +24,4 @@ export default function lists(state = [], action) {
   lists: [{...}, {...}, {...}],
   cards: [{...}, {...}, {...}, {...}, {}]
 }
-
 */

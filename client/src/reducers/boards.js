@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export default function boards(state = [], action) {
   switch (action.type) {
     case "FETCH_BOARDS_SUCCESS": {
@@ -22,5 +23,4 @@ export default function boards(state = [], action) {
   lists: [{...}, {...}, {...}],
   cards: [{...}, {...}, {...}, {...}, {}]
 }
-
 */
