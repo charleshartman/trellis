@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { fetchBoard } from "../actions/BoardActions";
 import { createList } from "../actions/ListActions";
 import List from "./List";
@@ -9,8 +9,36 @@ const Board = () => {
   const dispatch = useDispatch();
   const board = useSelector((state) => state.boards[0]);
   const lists = useSelector((state) => state.lists);
-
+  const cards = useSelector((state) => state.cards);
   const { id } = useParams();
+  const { pathname } = useLocation();
+
+  const getBoardId = (id, cards) => {
+    if (pathname.includes("/boards")) {
+      return id;
+    } else {
+      console.log(board, lists, cards);
+      let card = cards.find((card) => card._id === id);
+
+      if (card) {
+        return card.boardId;
+      } else {
+        return null;
+      }
+    }
+
+    // if path contains /boards
+    // return id
+    // else
+    // find the card from the state cards.find(c => c._id ===id)
+    // if (card)
+    // return card.boardId
+    // else return null;
+  };
+
+  const boardId = getBoardId(id, cards);
+
+  console.log(boardId);
 
   const [isAddListActive, setAddListActive] = useState(false);
   const [newListTitle, setNewListTitle] = useState("");
@@ -34,8 +62,14 @@ const Board = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchBoard(id));
-  }, [dispatch, id]);
+    console.log("hey!");
+    if (boardId) {
+      dispatch(fetchBoard(boardId));
+    }
+  }, [dispatch, boardId]);
+  // useEffect(() => {
+  //   dispatch(fetchBoard(id));
+  // }, [dispatch, id]);
 
   if (!board) {
     return null;
