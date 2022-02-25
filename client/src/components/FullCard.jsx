@@ -1,39 +1,43 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { fetchCard } from "../actions/cardActions";
 
 const FullCard = () => {
-  // why this doesn't work when we refresh page?
-  // when you click refresh state is empty
-  // state = {boards: [], lists: [], cards:[]}
+  const history = useHistory();
 
-  // we need to fetch card and board
-  // url doesn't have boardId
+  const redirect = (event) => {
+    event.stopPropagation();
+    history.push(`/boards/${card.boardId}`);
+  };
+  
   const dispatch = useDispatch();
-  // const cards = useSelector((state) => state.cards);
+  const cards = useSelector((state) => state.cards);
+  const lists = useSelector((state) => state.lists);
 
   const { cardId } = useParams();
-  // let card = cards.filter((c) => c._id === cardId);
-  card = card[0];
-  console.log(card);
+  let card = cards.find((c) => c._id === cardId);
+  let currentList = lists.find((l) => l._id === card.listId);
 
   useEffect(() => {
     dispatch(fetchCard(cardId));
   }, [dispatch, cardId]);
 
+  if (!card) return null;
+  if (!currentList) return null;
+
   return (
     <div id="modal-container">
-      <div className="screen"></div>
+      <div onClick={redirect} className="screen"></div>
       <div id="modal">
-        <i className="x-icon icon close-modal"></i>
+        <i onClick={redirect} className="x-icon icon close-modal"></i>
         <header>
           <i className="card-icon icon .close-modal"></i>
           <textarea className="list-title" style={{ height: "45px" }}>
             {card.title}
           </textarea>
           <p>
-            in list <a className="link">Stuff to try (this is a list)</a>
+            in list <a className="link">{currentList.title}</a>
             <i className="sub-icon sm-icon"></i>
           </p>
         </header>
@@ -43,24 +47,15 @@ const FullCard = () => {
               <ul className="modal-details-list">
                 <li className="labels-section">
                   <h3>Labels</h3>
-                  <div className="member-container">
-                    <div className="green label colorblindable"></div>
-                  </div>
-                  <div className="member-container">
-                    <div className="yellow label colorblindable"></div>
-                  </div>
-                  <div className="member-container">
-                    <div className="orange label colorblindable"></div>
-                  </div>
-                  <div className="member-container">
-                    <div className="blue label colorblindable"></div>
-                  </div>
-                  <div className="member-container">
-                    <div className="purple label colorblindable"></div>
-                  </div>
-                  <div className="member-container">
-                    <div className="red label colorblindable"></div>
-                  </div>
+                  {card.labels.map((label) => {
+                    return (
+                      <div key={label} className="member-container">
+                        <div
+                          className={`label ${label.toLowerCase()} colorblindable`}
+                        ></div>
+                      </div>
+                    );
+                  })}
                   <div className="member-container">
                     <i className="plus-icon sm-icon"></i>
                   </div>
@@ -74,7 +69,7 @@ const FullCard = () => {
                       className="checkbox"
                       checked=""
                     />
-                    Aug 4 at 10:42 AM <span>(past due)</span>
+                    {card.dueDate} <span>(past due)</span>
                   </div>
                 </li>
               </ul>
@@ -83,9 +78,7 @@ const FullCard = () => {
                 <span id="description-edit" className="link">
                   Edit
                 </span>
-                <p className="textarea-overlay">
-                  Cards have a symbol to indicate if they contain a description.
-                </p>
+                <p className="textarea-overlay">{card.description}</p>
                 <p id="description-edit-options" className="hidden">
                   You have unsaved edits on this field.{" "}
                   <span className="link">View edits</span> -{" "}

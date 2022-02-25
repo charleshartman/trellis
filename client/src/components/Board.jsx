@@ -17,29 +17,16 @@ const Board = () => {
     if (pathname.includes("/boards")) {
       return id;
     } else {
-      console.log(board, lists, cards);
       let card = cards.find((card) => card._id === id);
-
       if (card) {
         return card.boardId;
       } else {
         return null;
       }
     }
-
-    // if path contains /boards
-    // return id
-    // else
-    // find the card from the state cards.find(c => c._id ===id)
-    // if (card)
-    // return card.boardId
-    // else return null;
   };
 
   const boardId = getBoardId(id, cards);
-
-  console.log(boardId);
-
   const [isAddListActive, setAddListActive] = useState(false);
   const [newListTitle, setNewListTitle] = useState("");
 
@@ -62,14 +49,10 @@ const Board = () => {
   };
 
   useEffect(() => {
-    console.log("hey!");
     if (boardId) {
       dispatch(fetchBoard(boardId));
     }
   }, [dispatch, boardId]);
-  // useEffect(() => {
-  //   dispatch(fetchBoard(id));
-  // }, [dispatch, id]);
 
   if (!board) {
     return null;

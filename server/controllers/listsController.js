@@ -31,17 +31,28 @@ const updateListTitle = (req, res, next) => {
   console.log(req.body);
 
   if (errors.isEmpty()) {
-    List.findByIdAndUpdate(id, {title: newTitle}, {new: true})
+    List.findByIdAndUpdate(id, { title: newTitle }, { new: true })
       .then((updatedList) => {
         res.json(updatedList);
       })
       .catch((err) => {
-        next(new HttpError("Updating list title failed, please try again", 500));
-      })
+        next(
+          new HttpError("Updating list title failed, please try again", 500)
+        );
+      });
   } else {
     return next(new HttpError("The input field is empty.", 404));
   }
 };
 
+const findList = (req, res, next) => {
+  const listId = req.body.listId;
+  List.findOne({ _id: listId }).then((list) => {
+    req.list = list;
+    next();
+  });
+};
+
 exports.createList = createList;
 exports.updateListTitle = updateListTitle;
+exports.findList = findList;

@@ -9,7 +9,12 @@ const List = ({ list }) => {
   });
   const [isEditTitle, setIsEditTitle] = useState(false);
   const [listTitle, setListTitle] = useState(list.title);
+  // const [isAddCardActive, setIsAddCardActive] = useState(false)
   const dispatch = useDispatch();
+
+  // const handleAddCardToggle = () => {
+  //   //
+  // };
 
   const handleToggle = (e) => {
     e.preventDefault();
@@ -19,24 +24,24 @@ const List = ({ list }) => {
 
   const handleTitleChange = (e) => {
     setListTitle(e.target.value);
-  }
+  };
 
   const handlePressEnterOnListTitleChangeInput = (e) => {
     if (e.keyCode === 13) {
-      submitListTitleChange(e)
+      submitListTitleChange(e);
     }
-  }
+  };
 
   const handleLoseFocusOnListTitleChangeInput = (e) => {
-    submitListTitleChange(e)
-  }
+    submitListTitleChange(e);
+  };
 
   const submitListTitleChange = (e) => {
-    const id = list._id
-    const listInfo = { "title": listTitle }
+    const id = list._id;
+    const listInfo = { title: listTitle };
     dispatch(updateListTitle(id, listInfo));
     handleToggle(e);
-  }
+  };
 
   return (
     <div className="list-wrapper">
@@ -73,6 +78,7 @@ const List = ({ list }) => {
               }
             })}
           </div>
+          {/* toggle show for adding card */}
           <div className="add-dropdown add-bottom">
             <div className="card">
               <div className="card-info"></div>

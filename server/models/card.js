@@ -17,7 +17,7 @@ const CardSchema = new Schema(
     ],
     description: {
       type: String,
-      required: [true, "A desciption is required"],
+      default: "",
     },
     listId: {
       type: Schema.Types.ObjectId,
@@ -27,14 +27,14 @@ const CardSchema = new Schema(
     boardId: {
       type: Schema.Types.ObjectId,
       ref: "Board",
-      required: true,
     },
     position: {
       type: Number,
-      required: true,
+      default: 65535.0,
     },
     commentsCount: {
       type: Number,
+      default: 0,
     },
     archived: {
       type: Boolean,
