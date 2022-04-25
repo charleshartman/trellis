@@ -1,4 +1,4 @@
-# Team 7 - Trello Clone
+# Trellis - A Trello Clone
 
 ## DataBase Setup
 
