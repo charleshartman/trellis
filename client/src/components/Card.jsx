@@ -18,7 +18,9 @@ const Card = ({ card }) => {
             <p>{card.description}</p>
           </div>
           <div className="card-icons">
-            <i className="clock-icon sm-icon overdue-recent completed">Aug 4</i>
+            <i className="clock-icon sm-icon overdue-recent completed">
+              April 15
+            </i>
             <i className="description-icon sm-icon"></i>
             <i className="comment-icon sm-icon"></i>
           </div>

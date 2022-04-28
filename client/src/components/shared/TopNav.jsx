@@ -21,7 +21,7 @@ const TopNav = () => (
     <ul className="user-info">
       <li className="create-icon icon"></li>
       <li className="split-button-1">VR</li>
-      <li className="split-button-2">Victor Reyes</li>
+      <li className="split-button-2">Artemis</li>
       <li className="info-icon icon"></li>
       <li className="notifications-icon icon"></li>
     </ul>
