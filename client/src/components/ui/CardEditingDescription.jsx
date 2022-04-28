@@ -145,7 +145,7 @@ const CardEditingDescription = () => {
                     <div className="card-member small-size">VR</div>
                   </div>
                   <p>
-                    <span className="member-name">Victor Reyes</span> changed the
+                    <span className="member-name">Arden</span> changed the
                     background of this board <small>yesterday at 4:53 PM</small>
                   </p>
                 </li>
@@ -153,7 +153,7 @@ const CardEditingDescription = () => {
                   <div className="member-container">
                     <div className="card-member">VR</div>
                   </div>
-                  <h3>Victor Reyes</h3>
+                  <h3>Arden</h3>
                   <div className="comment static-comment">
                     <span>Example of a comment.</span>
                   </div>
